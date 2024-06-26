@@ -17,6 +17,20 @@ soup = bs(content_file, "html.parser")
 content = soup.find("section", {"id": "content"})
 
 rows = list(map(lambda x: x.text,content.find_all("li")))
+print(len(rows))
+result=[]
+
+marker = set()
+
+for l in rows:
+    ll = l.lower()
+    if ll not in marker:   # test presence
+        marker.add(ll)
+        result.append(l)   # preserve order
+
+rows = result
+print(len(rows))
+
 fields = ["test_name"]
 
 with open("labtests.csv", "w") as f:
